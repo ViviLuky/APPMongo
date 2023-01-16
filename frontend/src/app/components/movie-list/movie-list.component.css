@@ -10,3 +10,6 @@ img{
 .fa-plus-circle{
   color: limegreen;
 }
+#plot{
+  height: 150px;
+}

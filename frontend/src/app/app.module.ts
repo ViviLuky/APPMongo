@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { MovieListComponent } from './components/movie-list/movie-list.component';
 import {HttpClientModule} from "@angular/common/http";
 import { NavigationComponent } from './components/navigation/navigation.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { NavigationComponent } from './components/navigation/navigation.componen
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
