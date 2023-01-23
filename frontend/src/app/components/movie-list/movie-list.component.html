@@ -60,7 +60,7 @@
                   aria-label="Close"></button>
 
         </div>
-        <form [formGroup]="formMovie" (ngSubmit)="onSubmit()">
+        <form #formEdit="ngForm" [formGroup]="formMovie" (ngSubmit)="onSubmit(formEdit)">
           <div class="modal-body">
             <div class="form-floating mb-3">
               <input formControlName="title"
@@ -130,7 +130,7 @@
               <label for="newSelect">Genres</label>
               <select class="form-select" id="newSelect"
                       aria-label="Genres" multiple
-                      formControlName="genres">
+                     formControlName="genres">
                 <option *ngFor="let gen of genres"
                         [value]="gen">
                   {{gen}}</option>
@@ -180,7 +180,7 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary"
                     data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary"
+            <button [disabled]="formEdit.invalid" type="submit" class="btn btn-primary"
                     data-bs-dismiss="modal">Save changes</button>
           </div>
         </form>

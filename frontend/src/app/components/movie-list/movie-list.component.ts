@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Imdb, Movie} from "../../common/movie";
 import {MovieService} from "../../services/movie.service";
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {dateTimestampProvider} from "rxjs/internal/scheduler/dateTimestampProvider";
 
 @Component({
@@ -21,7 +21,7 @@ export class MovieListComponent implements OnInit {
     director: [''],
     plot: [''],
     poster:[''],
-    genres: [''],
+    genres: [[],[Validators.required]],
     __v:['']
   });
   movies: Movie[] = [];
@@ -103,20 +103,22 @@ export class MovieListComponent implements OnInit {
      newGenres = this.formMovie.getRawValue().genres;
      console.log(newGenres, newGenre);
      newGenres.push(newGenre);
+     this.genres.push(newGenre);
      this.formMovie.setControl('genres',new FormControl(newGenres));
    }
    this.mynewGenre.reset();
   }
 
-  onSubmit() {
-   if(this.editar){
-     const id = this.formMovie.getRawValue()._id;
-     this.movieService.updateMovie(id,this.formMovie.getRawValue())
-       .subscribe(data => this.loadMovies())
-   }else{
-     this.movieService.addMovie(this.formMovie.getRawValue())
-       .subscribe(data => this.loadMovies());
-   }
+  onSubmit(form: any) {
+    if (form.valid) {
+      if (this.editar) {
+        const id = this.formMovie.getRawValue()._id;
+        this.movieService.updateMovie(id, this.formMovie.getRawValue())
+          .subscribe(data => this.loadMovies())
+      } else {
+        this.movieService.addMovie(this.formMovie.getRawValue())
+          .subscribe(data => this.loadMovies());
+      }
+    }
   }
-
 }
